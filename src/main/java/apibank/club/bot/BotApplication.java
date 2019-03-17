@@ -1,5 +1,6 @@
 package apibank.club.bot;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.telegram.telegrambots.ApiContextInitializer;
@@ -12,16 +13,27 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 @SpringBootApplication
 public class BotApplication {
 
+  //@Value("${telegram.proxy.set}")
+  private static boolean proxy = true;
+
+  //@Value("${telegram.proxy.host}")
+  private static String proxyHost = "149.56.27.45";
+
+  //@Value("${telegram.proxy.port}")
+  private static int proxyPort = 1080;
+
   public static void main(String[] args) {
-    SpringApplication.run(BotApplication.class, args);
     ApiContextInitializer.init();
+    SpringApplication.run(BotApplication.class, args);
 
     TelegramBotsApi botsApi = new TelegramBotsApi();
     try {
       DefaultBotOptions botOptions = ApiContext.getInstance(DefaultBotOptions.class);
-      botOptions.setProxyHost("149.56.27.45");
-      botOptions.setProxyPort(1080);
-      botOptions.setProxyType(DefaultBotOptions.ProxyType.SOCKS5);
+      if(proxy) {
+        botOptions.setProxyHost(proxyHost);
+        botOptions.setProxyPort(proxyPort);
+        botOptions.setProxyType(DefaultBotOptions.ProxyType.SOCKS5);
+      }
       botsApi.registerBot(new Bot(botOptions));
     } catch (TelegramApiRequestException e) {
       e.printStackTrace();
