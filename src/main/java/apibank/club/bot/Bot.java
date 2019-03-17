@@ -59,7 +59,7 @@ public class Bot extends TelegramWebhookBot {
 
   @Override
   public String getBotPath() {
-    return "RifBot";
+    return "https://rif-bot.herokuapp.com";
   }
 
   @Override
