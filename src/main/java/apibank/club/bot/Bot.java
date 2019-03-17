@@ -22,20 +22,23 @@ public class Bot extends TelegramLongPollingBot {
   }
 
   public void onUpdateReceived(Update update) {
+
+    logger.info("#################### TRY GET MESSAGE #######################################");
+
     try {
-      logger.debug("TRY GET MESSAGE");
+
       if(update.hasMessage() && update.getMessage().hasText()) {
         Message inMessage = update.getMessage();
 
-        logger.debug("TAKE MESSAGE "+inMessage.getText());
+        logger.info("TAKE MESSAGE "+inMessage.getText());
 
         SendMessage outMessage = new SendMessage();
         outMessage.setChatId(inMessage.getChatId());
         outMessage.setText(inMessage.getText());
         execute(outMessage);
 
-        logger.debug("SENT MESSAGE "+inMessage.getText());
-      }else logger.debug("NOT ANOTH MESSAGE");
+        logger.info("SENT MESSAGE "+inMessage.getText());
+      }else logger.info("NOT ANOTH MESSAGE");
     } catch (TelegramApiException e) {
       logger.error(e.getMessage(), e);
     }
