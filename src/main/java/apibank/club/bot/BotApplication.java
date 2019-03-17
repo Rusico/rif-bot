@@ -11,7 +11,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 @SpringBootApplication
 public class BotApplication {
 
-  private static boolean proxy = true;
+  private static boolean proxy = false;
   private static String proxyHost = "149.56.27.45";
   private static int proxyPort = 1080;
 

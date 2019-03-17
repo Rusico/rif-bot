@@ -61,4 +61,9 @@ public class Bot extends TelegramWebhookBot {
   public String getBotPath() {
     return "RifBot";
   }
+
+  @Override
+  public void setWebhook(String url, String publicCertificatePath) throws TelegramApiRequestException {
+    super.setWebhook(url, "src/main/resources/ssl/bot.jks");
+  }
 }
